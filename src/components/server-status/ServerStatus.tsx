@@ -2,6 +2,7 @@ import { FC, useState } from "react";
 import "./ServerStatus.css";
 import ServerDetailsModal from "./ServerDetailsModal";
 import ComponentHeader from "../shared/component-header/ComponentHeader";
+import Card from "../common/Card";
 
 interface ServerStatus {
   id: number;
@@ -84,38 +85,38 @@ const ServerStatus: FC<IProps> = ({ searchQuery, selectedRegion }) => {
     setModalOpen(false);
   };
 
+  const cardContent = (
+    <div className="server-status-container">
+      {filteredServers.length > 0 ? (
+        filteredServers.map((server) => (
+          <div
+            key={server.id}
+            className={`server-status-item ${server.status.toLowerCase()}`}
+          >
+            <span>{server.name}</span>
+            <span>Status: {server.status}</span>
+            <span>Region: {server.region}</span>
+            <button className="show-more-btn" onClick={() => openModal(server)}>
+              Show More
+            </button>
+          </div>
+        ))
+      ) : (
+        <div>No servers found</div>
+      )}
+      {selectedServer && (
+        <ServerDetailsModal
+          server={selectedServer}
+          isOpen={modalOpen}
+          onClose={closeModal}
+        />
+      )}
+    </div>
+  );
+
   return (
     <div className="server-status-container-root">
-      <ComponentHeader headerName="Servers Status" />
-      <div className="server-status-container">
-        {filteredServers.length > 0 ? (
-          filteredServers.map((server) => (
-            <div
-              key={server.id}
-              className={`server-status-item ${server.status.toLowerCase()}`}
-            >
-              <span>{server.name}</span>
-              <span>Status: {server.status}</span>
-              <span>Region: {server.region}</span>
-              <button
-                className="show-more-btn"
-                onClick={() => openModal(server)}
-              >
-                Show More
-              </button>
-            </div>
-          ))
-        ) : (
-          <div>No servers found</div>
-        )}
-        {selectedServer && (
-          <ServerDetailsModal
-            server={selectedServer}
-            isOpen={modalOpen}
-            onClose={closeModal}
-          />
-        )}
-      </div>
+      <Card headerName="Servers Status" content={cardContent} />
     </div>
   );
 };

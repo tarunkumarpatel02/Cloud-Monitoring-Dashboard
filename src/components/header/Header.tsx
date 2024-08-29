@@ -1,7 +1,7 @@
 import { Dispatch, FC, SetStateAction, useState } from "react";
 import "./Header.css";
-import SearchBar from "../search-bar/SearchBar";
-import RegionFilter from "../region-filter/RegionFilter";
+import SearchBar from "./search-bar/SearchBar";
+import RegionFilter from "./region-filter/RegionFilter";
 import { useNotifications } from "../../context/NotificationContext";
 
 interface IProps {

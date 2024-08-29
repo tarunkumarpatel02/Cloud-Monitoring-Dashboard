@@ -5,6 +5,7 @@ import {
   useNotifications,
 } from "../../context/NotificationContext";
 import ComponentHeader from "../shared/component-header/ComponentHeader";
+import Card from "../common/Card";
 
 const RealTimeNotifications: FC = () => {
   const {
@@ -61,37 +62,42 @@ const RealTimeNotifications: FC = () => {
     </select>
   );
 
+  const cardContent = (
+    <ul className="notification-list">
+      {filteredNotifications.length > 0 ? (
+        filteredNotifications.map((notification) => (
+          <li
+            key={notification.id}
+            className={`notification-item ${notification.type.toLowerCase()}`}
+          >
+            <div className="notification-content">
+              <div>
+                <strong>{notification.type}</strong>: {notification.message}
+                <div className="timestamp">{notification.timestamp}</div>
+              </div>
+              <button
+                className="dismiss-button"
+                onClick={() => dismissNotification(notification.id)}
+              >
+                Dismiss
+              </button>
+            </div>
+          </li>
+        ))
+      ) : (
+        <div className="align-self-center">No notifications</div>
+      )}
+    </ul>
+  );
+
   return (
     <div className="notification-container-root">
-      <ComponentHeader
+      <Card
         headerName="Real-Time Notifications"
+        content={cardContent}
         jsxToShow={filterDropdownJsx}
+        className="notification-list"
       />
-      <ul className="notification-list">
-        {filteredNotifications.length > 0 ? (
-          filteredNotifications.map((notification) => (
-            <li
-              key={notification.id}
-              className={`notification-item ${notification.type.toLowerCase()}`}
-            >
-              <div className="notification-content">
-                <div>
-                  <strong>{notification.type}</strong>: {notification.message}
-                  <div className="timestamp">{notification.timestamp}</div>
-                </div>
-                <button
-                  className="dismiss-button"
-                  onClick={() => dismissNotification(notification.id)}
-                >
-                  Dismiss
-                </button>
-              </div>
-            </li>
-          ))
-        ) : (
-          <div className="align-self-center">No notifications</div>
-        )}
-      </ul>
     </div>
   );
 };

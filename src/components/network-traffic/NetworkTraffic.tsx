@@ -9,7 +9,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import ComponentHeader from "../shared/component-header/ComponentHeader";
+import Card from "../common/Card";
 
 ChartJS.register(
   CategoryScale,
@@ -76,10 +76,10 @@ const NetworkTraffic: FC<NetworkTrafficChartProps> = ({ data }) => {
 
   return (
     <div className="card-container">
-      <ComponentHeader headerName="Network Traffic" />
-      <div>
-        <Bar data={chartData} options={options} />
-      </div>
+      <Card
+        headerName="Network Traffic"
+        content={<Bar data={chartData} options={options} />}
+      />
     </div>
   );
 };

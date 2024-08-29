@@ -11,8 +11,7 @@ import {
 } from "chart.js";
 import { Line } from "react-chartjs-2";
 import { ChartData, ChartOptions } from "chart.js";
-import "./ResourceUsage.css";
-import ComponentHeader from "../shared/component-header/ComponentHeader";
+import Card from "../common/Card";
 
 // Register Chart.js components
 ChartJS.register(
@@ -95,10 +94,10 @@ const ResourceUsage: FC = () => {
 
   return (
     <div className="card-container">
-      <ComponentHeader headerName="Resource Usage" />
-      <div>
-        <Line data={cpuData} options={options} />
-      </div>
+      <Card
+        headerName="Resource Usage"
+        content={<Line data={cpuData} options={options} />}
+      />
     </div>
   );
 };
